@@ -1,6 +1,9 @@
 # Build output
 site/
 
+# Session state (local only)
+state/
+
 # OS files
 .DS_Store
 Thumbs.db
