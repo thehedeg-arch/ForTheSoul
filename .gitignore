@@ -4,6 +4,12 @@ site/
 # Session state (local only)
 state/
 
+# Design working files (local only)
+design/
+
+# Personal info (never push — repo is public)
+private/
+
 # OS files
 .DS_Store
 Thumbs.db
