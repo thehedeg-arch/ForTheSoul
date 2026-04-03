@@ -1,0 +1,441 @@
+/* Font Definitions */
+@font-face {
+    font-family: 'Rock Salt';
+    src: url('../../src/assets/fonts/Rock_Salt_1/RockSalt-Regular.ttf') format('truetype'),
+         url('https://fonts.gstatic.com/s/rocksalt/v18/MwQ0bhv11fWD6QsCEOUIdD4.woff2') format('woff2'); /* Fallback for rapid testing */
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Palette Tokens */
+:root {
+    /* New Scheme */
+    --clr-pale-oak: #e4ccaa;
+    --clr-sky-blue: #86c5d6;
+    --clr-jet-black: #0a2d33;
+    --clr-olive-leaf: #4b5b34;
+    --clr-powder-blush: #eaa099;
+    --clr-oxblood: #980204;
+    --clr-amber-earth: #ea8914;
+
+    /* Semantic */
+    --bg-main: var(--clr-pale-oak);
+    --text-primary: var(--clr-jet-black);
+    --text-inverse: var(--clr-pale-oak);
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* Dynamic Mesh Gradient Background */
+/* This approach is highly optimized and runs entirely on the GPU */
+.mesh-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+    background: var(--clr-pale-oak); /* Base fallback */
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.7;
+    animation: drift 20s infinite alternate ease-in-out;
+    will-change: transform;
+}
+
+.orb-1 {
+    width: 60vw;
+    height: 60vw;
+    background: var(--clr-sky-blue);
+    top: -20%;
+    left: -10%;
+    animation-duration: 25s;
+}
+
+.orb-2 {
+    width: 50vw;
+    height: 50vw;
+    background: var(--clr-powder-blush);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+    animation-duration: 22s;
+}
+
+.orb-3 {
+    width: 70vw;
+    height: 70vw;
+    background: var(--clr-amber-earth);
+    top: 40%;
+    left: 30%;
+    opacity: 0.4;
+    animation-duration: 30s;
+}
+
+.orb-4 {
+    width: 40vw;
+    height: 40vw;
+    background: var(--clr-oxblood);
+    top: 10%;
+    right: 20%;
+    opacity: 0.2;
+    animation-delay: -10s;
+    animation-duration: 18s;
+}
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(10vw, 5vh) scale(1.1); }
+    100% { transform: translate(-5vw, 15vh) scale(0.9); }
+}
+
+/* Scripture Watermarks */
+.watermarks {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+}
+
+.watermark {
+    font-family: 'Rock Salt', cursive;
+    color: var(--text-primary);
+    opacity: 0.08; /* Very subtle texture */
+    position: absolute;
+    white-space: nowrap;
+}
+
+.wm-1 {
+    font-size: 2rem;
+    top: 15%;
+    left: 5%;
+    transform: rotate(-4deg);
+}
+
+.wm-2 {
+    font-size: 1.5rem;
+    top: 45%;
+    right: -5%;
+    transform: rotate(3deg);
+}
+
+.wm-3 {
+    font-size: 1.25rem;
+    bottom: 25%;
+    left: 10%;
+    transform: rotate(-2deg);
+}
+
+.wm-4 {
+    font-size: 3rem;
+    bottom: -2%;
+    left: 40%;
+    transform: rotate(1deg);
+    opacity: 0.05;
+}
+
+/* Layout Wrapper */
+.wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1; /* Above background */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+/* Hero Section */
+.hero-module {
+    padding: 4rem 4rem 0;
+    margin-bottom: 2rem;
+}
+
+.hero {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    margin-bottom: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-eyebrow {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.1;
+    max-width: 800px;
+}
+
+.hero-title strong {
+    font-weight: 700;
+    display: block;
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.video-stack figure {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(10, 45, 51, 0.2);
+}
+
+.video-stack img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.8) contrast(1.1);
+}
+
+.video-stack figcaption {
+    position: absolute;
+    bottom: 2rem;
+    left: -2rem;
+    background: var(--clr-jet-black);
+    color: var(--clr-pale-oak);
+    padding: 1rem 2rem;
+    box-shadow: 0 10px 20px rgba(10,45,51,0.3);
+}
+
+.name {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.role {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.hero-bracket {
+    width: 100%;
+    height: 60px;
+    color: var(--clr-jet-black);
+}
+
+.hero-bracket svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Stories Grid Section */
+.grid-module {
+    background-color: var(--clr-jet-black);
+    color: var(--clr-pale-oak);
+    padding: 6rem 4rem;
+    position: relative;
+    border-radius: 40px 40px 0 0;
+    margin-top: -30px;
+}
+
+.module-header {
+    margin-bottom: 4rem;
+}
+
+.header-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(228, 204, 170, 0.2);
+    margin-bottom: 3rem;
+}
+
+.module-title-wrapper {
+    max-width: 600px;
+}
+
+.module-amount {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--clr-sky-blue);
+    margin-bottom: 0.5rem;
+}
+
+.module-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.dotted-line {
+    height: 4px;
+    width: 80px;
+    background-image: radial-gradient(circle, var(--clr-poweder-blush, #eaa099) 2px, transparent 2px);
+    background-size: 8px 8px;
+    margin-bottom: 1.5rem;
+}
+
+.dotted-line.small {
+    width: 40px;
+    margin: 1rem 0;
+}
+
+.module-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Grid layout */
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 4rem;
+}
+
+.story-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    group: hover;
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: grayscale(20%);
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 45, 51, 0.6) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.story-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.story-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.card-name {
+    font-size: 1.75rem;
+    line-height: 1.1;
+    font-weight: 300;
+}
+
+.card-role {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--clr-sky-blue);
+}
+
+/* Buttons */
+.explore-button {
+    background: none;
+    border: 1px solid rgba(228, 204, 170, 0.3);
+    color: var(--clr-pale-oak);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.explore-button:hover {
+    background: var(--clr-pale-oak);
+    color: var(--clr-jet-black);
+}
+
+/* Responsive constraints */
+@media (max-width: 1024px) {
+    .stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hero {
+        flex-direction: column;
+    }
+    .hero-visual {
+        justify-content: flex-start;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stories-grid {
+        grid-template-columns: 1fr;
+    }
+    .header, .hero-module, .grid-module {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}

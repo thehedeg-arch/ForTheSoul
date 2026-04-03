@@ -4,9 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For The Soul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* === DESIGN TOKENS === */
+        :root {
+            --color-jet-black:     #0a2d33;
+            --color-sky-blue:      #86c5d6;
+            --color-sky-blue-dark: #77a5af;
+            --color-pale-oak:      #e4ccaa;
+            --color-seashell:      #fff3ec;
+            --color-pure-white:    #ffffff;
+            --color-status-green:  #4b5b34;
+            --color-amber:         #d38c24;
+
+            --color-jet-black-80:  rgba(10, 45, 51, 0.8);
+            --color-pale-oak-80:   rgba(228, 204, 170, 0.8);
+            --color-seashell-80:   rgba(255, 243, 236, 0.8);
+
+            --color-bg:            var(--color-jet-black);
+            --color-bg-inverse:    var(--color-seashell);
+            --color-bg-alt:        var(--color-jet-black-80);
+
+            --color-text:          var(--color-seashell);
+            --color-text-inverse:  var(--color-jet-black);
+            --color-text-muted:    var(--color-seashell-80);
+
+            --color-accent:        var(--color-sky-blue);
+            --color-accent-hover:  var(--color-sky-blue-dark);
+            --color-highlight:     var(--color-amber);
+            --color-border:        rgba(255, 243, 236, 0.2);
+            --color-border-subtle: rgba(255, 243, 236, 0.1);
+
+            --color-status-success: var(--color-status-green);
+            --color-bg-hover:       var(--color-jet-black-80);
+
+            --font-heading: "Gloock", serif;
+            --font-body:    "Jost", sans-serif;
+
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --color-bg:            var(--color-seashell);
+                --color-bg-inverse:    var(--color-jet-black);
+                --color-bg-alt:        var(--color-pale-oak);
+
+                --color-text:          var(--color-jet-black);
+                --color-text-inverse:  var(--color-seashell);
+                --color-text-muted:    var(--color-jet-black-80);
+
+                --color-border:        var(--color-pale-oak);
+                --color-border-subtle: color-mix(in srgb, var(--color-pale-oak) 50%, transparent);
+
+                --color-bg-hover:      var(--color-pale-oak-80);
+            }
+        }
+
+        /* === BASE RESET === */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+
+        /* === HEADER === */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 64px;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 100;
+        }
+
+        .site-header .logo img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <h1>For The Soul</h1>
-    <p>Coming soon.</p>
+
+    <header class="site-header">
+        <a href="/" class="logo">
+            <picture>
+                <source srcset="assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" media="(prefers-color-scheme: light)">
+                <img src="assets/Logo%20-%20White%20Text%20Transparent.svg" alt="For The Soul">
+            </picture>
+        </a>
+    </header>
+
 </body>
 </html>

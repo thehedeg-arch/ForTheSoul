@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For The Soul — Brand Mockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* === TOKENS FROM palette.md === */
+        :root {
+            --color-jet-black:     #0a2d33;
+            --color-sky-blue:      #86c5d6;
+            --color-sky-blue-dark: #77a5af;
+            --color-pale-oak:      #e4ccaa;
+            --color-seashell:      #fff3ec;
+            --color-pure-white:    #ffffff;
+            --color-status-green:  #4b5b34;
+            --color-amber:         #d38c24;
+
+            --color-jet-black-80:  rgba(10, 45, 51, 0.8);
+            --color-pale-oak-80:   rgba(228, 204, 170, 0.8);
+            --color-seashell-80:   rgba(255, 243, 236, 0.8);
+
+            --color-bg:            var(--color-jet-black);
+            --color-bg-inverse:    var(--color-seashell);
+            --color-bg-alt:        var(--color-jet-black-80);
+
+            --color-text:          var(--color-seashell);
+            --color-text-inverse:  var(--color-jet-black);
+            --color-text-muted:    var(--color-seashell-80);
+
+            --color-accent:        var(--color-sky-blue);
+            --color-accent-hover:  var(--color-sky-blue-dark);
+            --color-highlight:     var(--color-amber);
+            --color-border:        rgba(255, 243, 236, 0.2);
+            --color-border-subtle: rgba(255, 243, 236, 0.1);
+
+            --color-status-success: var(--color-status-green);
+            --color-bg-hover:       var(--color-jet-black-80);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --color-bg:            var(--color-seashell);
+                --color-bg-inverse:    var(--color-jet-black);
+                --color-bg-alt:        var(--color-pale-oak);
+
+                --color-text:          var(--color-jet-black);
+                --color-text-inverse:  var(--color-seashell);
+                --color-text-muted:    var(--color-jet-black-80);
+
+                --color-border:        var(--color-pale-oak);
+                --color-border-subtle: color-mix(in srgb, var(--color-pale-oak) 50%, transparent);
+
+                --color-bg-hover:      var(--color-pale-oak-80);
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Jost', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Type scale preview */
+        .display {
+            font-family: 'Gloock', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-family: 'Gloock', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-family: 'Gloock', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 0.75rem;
+        }
+        h3 {
+            font-family: 'Jost', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+        p { margin-bottom: 1.5rem; color: var(--color-text); }
+        .muted { color: var(--color-text-muted); font-size: 0.9rem; }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--color-border);
+            margin: 3rem 0;
+        }
+
+        .accent-text { color: var(--color-accent); }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Jost', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.875rem 2rem;
+            background: var(--color-accent);
+            color: var(--color-text);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+        .btn:hover { background: var(--color-accent-hover); }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-text);
+        }
+
+        .swatch-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .swatch {
+            width: 80px; height: 80px;
+            display: flex; align-items: flex-end;
+            padding: 4px;
+            font-size: 0.6rem;
+            font-family: monospace;
+        }
+
+        /* === HEADER PREVIEW === */
+        .mockup-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 64px;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            font-family: var(--font-body, 'Jost', sans-serif);
+            z-index: 100;
+        }
+        .mockup-header .logo-slot img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+        .mockup-header nav {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+        body { padding-top: 64px; }
+    </style>
+</head>
+<body>
+
+    <header class="mockup-header">
+        <div class="logo-slot">
+            <picture>
+                <source srcset="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" media="(prefers-color-scheme: light)">
+                <img src="../src/assets/Logo%20-%20White%20Text%20Transparent.svg" alt="For The Soul">
+            </picture>
+        </div>
+        <nav>
+            <span>Teachings</span>
+            <span>The Stage</span>
+            <span>Discipleship</span>
+        </nav>
+    </header>
+
+    <h3>For The Soul</h3>
+    <p class="display">Teaching that<br><span class="accent-text">feeds the soul.</span></p>
+
+    <hr class="divider">
+
+    <h3>Section Label</h3>
+    <h1>A heading in Gloock sits here</h1>
+    <h2>Secondary heading, Gloock</h2>
+    <p>Body copy in Jost. Clear, readable, honest. This is what paragraph text looks like at full measure — meant for teachings, discipleship notes, and reflective content that the reader actually sits with.</p>
+    <p class="muted">Small text / label / metadata — Jost 400</p>
+
+    <hr class="divider">
+
+    <h3>Buttons</h3>
+    <a class="btn" href="#">Read the Teaching</a>
+    <a class="btn btn-outline" href="#">Explore Discipleship</a>
+
+    <hr class="divider">
+
+    <h3>Color Swatches</h3>
+    <div class="swatch-row">
+        <div class="swatch" style="background:var(--color-bg); border:1px solid var(--color-border);">bg</div>
+        <div class="swatch" style="background:var(--color-bg-alt); border:1px solid var(--color-border);">bg-alt</div>
+        <div class="swatch" style="background:var(--color-bg-inverse);">bg-inv</div>
+        <div class="swatch" style="background:var(--color-text); color:#fff;">text</div>
+        <div class="swatch" style="background:var(--color-text-muted); color:#fff;">muted</div>
+        <div class="swatch" style="background:var(--color-accent); color:#000;">accent</div>
+        <div class="swatch" style="background:var(--color-accent-hover); color:#000;">acc-hvr</div>
+        <div class="swatch" style="background:var(--color-border); border:1px solid #ccc;">border</div>
+        <div class="swatch" style="background:var(--color-status-success); color:#fff;">success</div>
+        <div class="swatch" style="background:var(--color-highlight); color:#000;">highlight</div>
+    </div>
+
+    <hr class="divider">
+
+    <h3>Colour in Context</h3>
+    <p style="border-left: 3px solid var(--color-highlight); padding-left: 1.25rem; color: var(--color-highlight); font-family: 'Gloock', serif; font-size: 1.25rem; line-height: 1.4;">"The soul that has no fixed aim loses itself."</p>
+    <p class="muted" style="margin-top: 0.5rem; padding-left: 1.5rem;">Amber — pull quote / featured scripture</p>
+
+
+</body>
+</html>

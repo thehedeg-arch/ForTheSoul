@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup B — Editorial Composition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock:ital@0;1&family=Jost:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-jet-black:     #0a2d33;
+            --color-sky-blue:      #86c5d6;
+            --color-sky-blue-dark: #77a5af;
+            --color-pale-oak:      #e4ccaa;
+            --color-seashell:      #fff3ec;
+            --color-amber:         #d38c24;
+            --color-jet-black-80:  rgba(10, 45, 51, 0.8);
+            --color-seashell-80:   rgba(255, 243, 236, 0.8);
+
+            --color-bg:            var(--color-seashell);
+            --color-text:          var(--color-jet-black);
+            --color-text-muted:    var(--color-jet-black-80);
+            --color-accent:        var(--color-sky-blue-dark);
+            --color-highlight:     var(--color-sky-blue-dark);
+            --color-border:        var(--color-pale-oak);
+
+            --font-heading: "Gloock", serif;
+            --font-body:    "Jost", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* === HEADER === */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            height: 68px;
+            z-index: 100;
+            border-bottom: 1px solid var(--color-border);
+            background: rgba(255, 243, 236, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        .site-header .logo img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .site-header nav {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .site-header nav a:hover { color: var(--color-text); }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 68px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Muted background word bleeding behind right panel */
+        .hero-bg-word {
+            position: absolute;
+            font-family: var(--font-heading);
+            font-size: clamp(18vw, 22vw, 28vw);
+            line-height: 1;
+            color: var(--color-jet-black);
+            opacity: 0.08;
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
+            bottom: -0.1em;
+            right: -0.15em;
+            letter-spacing: -0.02em;
+        }
+
+        /* LEFT — text */
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 3.5rem 4rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-headline {
+            margin-bottom: 1.75rem;
+        }
+
+        .headline-gloock {
+            display: block;
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: clamp(3rem, 6vw, 6.5rem);
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        .headline-gloock .amber { color: var(--color-highlight); }
+
+        .headline-jost {
+            display: block;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: clamp(1.25rem, 2.5vw, 2.25rem);
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+            color: var(--color-accent);
+            margin-top: 0.5rem;
+        }
+
+        .hero-body {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            max-width: 420px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.875rem 1.75rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-seashell);
+        }
+
+        .btn-primary:hover { background: var(--color-sky-blue-dark); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-sky-blue-dark);
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: var(--color-sky-blue-dark);
+            color: var(--color-seashell);
+        }
+
+        /* RIGHT — media */
+        .hero-right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 3rem 4rem 2rem;
+            z-index: 1;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #0d1e22 0%, #071318 50%, #0a2025 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle amber corner accent */
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px;
+            height: 60px;
+            background: var(--color-highlight);
+        }
+
+        .video-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--color-highlight);
+        }
+
+        .play-hint {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .play-circle {
+            width: 56px;
+            height: 56px;
+            border: 1px solid rgba(255, 243, 236, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-circle svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--color-seashell);
+            margin-left: 3px;
+        }
+
+        .play-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        /* Amber vertical rule on left */
+        .hero-left::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 20%; bottom: 20%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--color-highlight), transparent);
+            opacity: 0.4;
+        }
+
+        /* === BELOW FOLD HINT === */
+        .section-hint {
+            padding: 4rem 3rem;
+            border-top: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-hint-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--color-highlight);
+            margin-bottom: 2rem;
+        }
+
+        .article-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5px;
+        }
+
+        .article-card {
+            padding: 2rem;
+            background: rgba(255, 243, 236, 0.025);
+            border: 1px solid var(--color-border);
+        }
+
+        .article-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .article-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            line-height: 1.2;
+        }
+
+        /* === ROCK SALT FONT === */
+        @font-face {
+            font-family: 'Rock Salt';
+            src: url('../src/assets/fonts/Rock_Salt (1)/RockSalt-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        /* === SCRIPTURE WATERMARKS === */
+        .scripture-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .vref {
+            position: absolute;
+            font-family: 'Rock Salt', cursive;
+            color: var(--color-jet-black);
+            opacity: 0.07;
+            line-height: 1.5;
+            transform: rotate(var(--r, -3deg));
+        }
+        .vref small { display: block; font-size: 0.65em; margin-top: 0.2em; }
+        .vref.sm { font-size: clamp(0.65rem, 1vw, 0.85rem); }
+        .vref.md { font-size: clamp(0.8rem, 1.4vw, 1.1rem); }
+        .vref.lg { font-size: clamp(0.95rem, 1.7vw, 1.4rem); }
+
+        /* === LABEL === */
+        .mockup-label {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0.5;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="/" class="logo">
+            <picture>
+                <source srcset="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" media="(prefers-color-scheme: light)">
+                <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+            </picture>
+        </a>
+        <nav>
+            <a href="#">Teachings</a>
+            <a href="#">The Stage</a>
+            <a href="#">Foundations</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="hero-bg-word" aria-hidden="true">GRACE</span>
+
+            <!-- SCRIPTURE WATERMARKS — edit entries in design/scripture-watermarks.md -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref lg" style="top:16%; left:3%; --r:-4deg;">
+                    Trust in the LORD with all your heart<br>
+                    <small>Proverbs 3:5 (ESV)</small>
+                </span>
+                <span class="vref sm" style="bottom:22%; left:4%; --r:2deg;">
+                    Your word is a lamp to my feet<br>
+                    <small>Psalm 119:105 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="hero-left">
+                <p class="eyebrow">Teaching that moves</p>
+                <div class="hero-headline">
+                    <span class="headline-gloock">Deep <span class="amber">truth,</span></span>
+                    <span class="headline-jost">Beautifully told.</span>
+                </div>
+                <p class="hero-body">Theology through cinema — for those who want more than Sunday morning. Deep doctrine, told in ways that stay with you.</p>
+                <div class="hero-ctas">
+                    <a href="#" class="btn btn-primary">Watch Now</a>
+                    <a href="#" class="btn btn-outline">Read the Teaching</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="video-placeholder">
+                    <div class="play-hint">
+                        <div class="play-circle">
+                            <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+                        </div>
+                        <span class="play-label">The Book of Proverbs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-hint">
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref md" style="top:30%; right:3%; --r:3deg;">
+                    In the beginning was the Word<br>
+                    <small>John 1:1 (ESV)</small>
+                </span>
+            </div>
+            <div class="section-hint-inner" style="position:relative; z-index:1;">
+                <p class="section-label">From the Library</p>
+                <div class="article-row">
+                    <div class="article-card">
+                        <p class="article-tag">Proverbs · Series</p>
+                        <h3 class="article-title">What wisdom actually demands of you</h3>
+                    </div>
+                    <div class="article-card">
+                        <p class="article-tag">Doctrine</p>
+                        <h3 class="article-title">The fear of the Lord is not what you think</h3>
+                    </div>
+                    <div class="article-card">
+                        <p class="article-tag">Foundations</p>
+                        <h3 class="article-title">Why does God let bad things happen?</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="mockup-label">Mockup B — Editorial Composition</div>
+
+</body>
+</html>

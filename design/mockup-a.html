@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For The Soul — Deep truth. Beautifully told.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock:ital@0;1&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* === TOKENS === */
+        :root {
+            --color-jet-black:     #0a2d33;
+            --color-sky-blue:      #86c5d6;
+            --color-sky-blue-dark: #77a5af;
+            --color-pale-oak:      #e4ccaa;
+            --color-seashell:      #fff3ec;
+            --color-amber:         #d38c24;
+            --color-jet-black-80:  rgba(10, 45, 51, 0.8);
+            --color-seashell-80:   rgba(255, 243, 236, 0.8);
+
+            --color-bg:            var(--color-seashell);
+            --color-text:          var(--color-jet-black);
+            --color-text-muted:    var(--color-jet-black-80);
+            --color-accent:        var(--color-sky-blue-dark);
+            --color-highlight:     var(--color-sky-blue-dark);
+            --color-border:        var(--color-pale-oak);
+
+            --font-heading: "Gloock", serif;
+            --font-body:    "Jost", sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* === ROCK SALT FONT === */
+        @font-face {
+            font-family: 'Rock Salt';
+            src: url('../src/assets/fonts/Rock_Salt (1)/RockSalt-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        /* === SCRIPTURE WATERMARKS === */
+        .scripture-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .vref {
+            position: absolute;
+            font-family: 'Rock Salt', cursive;
+            color: var(--color-jet-black);
+            opacity: 0.07;
+            line-height: 1.5;
+            transform: rotate(var(--r, -3deg));
+        }
+        .vref small { display: block; font-size: 0.65em; margin-top: 0.2em; }
+        .vref.sm { font-size: clamp(0.65rem, 1vw, 0.85rem); }
+        .vref.md { font-size: clamp(0.8rem, 1.4vw, 1.1rem); }
+        .vref.lg { font-size: clamp(0.95rem, 1.7vw, 1.4rem); }
+
+        /* Dark section watermarks use seashell color */
+        .section-stage .vref,
+        .section-foundations .vref { color: var(--color-seashell); }
+
+        /* === SHARED SECTION UTILITIES === */
+        .section-label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-highlight);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-intro {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--color-text-muted);
+            max-width: 520px;
+            margin-bottom: 3.5rem;
+        }
+
+        .link-cta {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            border-bottom: 1px solid rgba(119, 165, 175, 0.4);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .link-cta:hover { color: var(--color-sky-blue-dark); border-color: var(--color-sky-blue-dark); }
+
+        /* === HEADER === */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            height: 68px;
+            z-index: 100;
+            border-bottom: 1px solid var(--color-border);
+            background: rgba(255, 243, 236, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        .site-header .logo img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .site-header nav {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .site-header nav a:hover { color: var(--color-text); }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 68px 2rem 2rem;
+        }
+
+        .hero-bg-truth,
+        .hero-bg-grace {
+            position: absolute;
+            font-family: var(--font-heading);
+            line-height: 1;
+            color: var(--color-sky-blue);
+            opacity: 0.22;
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-bg-truth {
+            font-size: clamp(8rem, 11vw, 14rem);
+            top: 12%;
+            left: -0.02em;
+        }
+
+        .hero-bg-grace {
+            font-size: clamp(14rem, 25vw, 30rem);
+            font-style: italic;
+            bottom: 18%;
+            right: -0.08em;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 720px;
+        }
+
+        .eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-headline {
+            font-family: var(--font-heading);
+            font-size: clamp(3.5rem, 8vw, 8rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-headline .word-truth { font-style: italic; }
+
+        .hero-sub {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            color: var(--color-text-muted);
+            letter-spacing: 0.01em;
+            margin-bottom: 2.5rem;
+        }
+
+        .amber-rule {
+            width: 48px;
+            height: 1.5px;
+            background: var(--color-highlight);
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-cta {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            border-bottom: 1px solid rgba(119, 165, 175, 0.4);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .hero-cta:hover { color: var(--color-sky-blue-dark); border-color: var(--color-sky-blue-dark); }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--color-border));
+        }
+
+        /* === THE STAGE === */
+        .section-stage {
+            background: var(--color-jet-black);
+            color: var(--color-seashell);
+            padding: 7rem 3rem;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .section-stage .section-label { color: var(--color-sky-blue); }
+
+        .stage-text { position: relative; z-index: 1; }
+
+        .stage-text h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.25rem, 4.5vw, 4rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.25rem;
+            color: var(--color-seashell);
+        }
+
+        .stage-text h2 em { font-style: italic; color: var(--color-sky-blue); }
+
+        .stage-text p {
+            font-size: 0.95rem;
+            color: rgba(255, 243, 236, 0.65);
+            line-height: 1.8;
+            max-width: 420px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-stage {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-seashell);
+            border: 1px solid rgba(255, 243, 236, 0.25);
+            padding: 0.875rem 1.75rem;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .btn-stage:hover {
+            border-color: var(--color-sky-blue);
+            background: rgba(134, 197, 214, 0.08);
+        }
+
+        .stage-panel {
+            position: relative;
+            z-index: 1;
+            aspect-ratio: 4 / 3;
+            background: linear-gradient(145deg, #0d2228 0%, #071318 60%, #0a1e22 100%);
+            overflow: hidden;
+        }
+
+        .stage-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 60px;
+            background: var(--color-sky-blue-dark);
+        }
+
+        .stage-panel::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 60px; height: 3px;
+            background: var(--color-sky-blue-dark);
+        }
+
+        .stage-panel-label {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 243, 236, 0.35);
+        }
+
+        /* === TEACHINGS === */
+        .section-teachings {
+            padding: 7rem 3rem;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .teachings-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-teaching {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .featured-thumb {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #0d2228 0%, #071318 55%, #0a1e22 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-hint {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .play-circle {
+            width: 52px;
+            height: 52px;
+            border: 1px solid rgba(255, 243, 236, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-circle svg {
+            width: 14px; height: 14px;
+            fill: rgba(255, 243, 236, 0.7);
+            margin-left: 3px;
+        }
+
+        .play-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 243, 236, 0.4);
+        }
+
+        .featured-info .series-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .featured-info h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.75rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .featured-info p {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+
+        .teachings-grid-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding-top: 3rem;
+            border-top: 1px solid var(--color-border);
+            margin-bottom: 2rem;
+        }
+
+        .teachings-grid-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .teaching-card { display: block; }
+
+        .teaching-card-thumb {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #0d2228, #071318);
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: opacity 0.2s;
+        }
+        .teaching-card:hover .teaching-card-thumb { opacity: 0.85; }
+
+        .teaching-card-tag {
+            font-size: 0.62rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .teaching-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            line-height: 1.25;
+            color: var(--color-text);
+            transition: color 0.2s;
+        }
+        .teaching-card:hover .teaching-card-title { color: var(--color-accent); }
+
+        /* === FOUNDATIONS === */
+        .section-foundations {
+            background: var(--color-jet-black);
+            color: var(--color-seashell);
+            padding: 7rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .foundations-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-foundations .section-label { color: var(--color-sky-blue); }
+
+        .section-foundations h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: var(--color-seashell);
+            margin-bottom: 1rem;
+        }
+
+        .section-foundations .section-intro {
+            color: rgba(255, 243, 236, 0.6);
+        }
+
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .step {
+            border-top: 1px solid rgba(255, 243, 236, 0.12);
+            padding-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-num {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--color-sky-blue-dark);
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-seashell);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .step p {
+            font-size: 0.875rem;
+            color: rgba(255, 243, 236, 0.5);
+            line-height: 1.65;
+        }
+
+        .btn-solid {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--color-sky-blue-dark);
+            color: var(--color-seashell);
+            padding: 0.875rem 1.75rem;
+            transition: background 0.2s;
+        }
+        .btn-solid:hover { background: var(--color-sky-blue); }
+
+        /* === GOD AT WORK === */
+        .section-testimonies {
+            padding: 7rem 3rem;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .testimonies-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-testimonies h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .testimony-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .testimony-card { display: block; cursor: pointer; }
+
+        .testimony-photo {
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(160deg, #0f2226 0%, #0a2d33 100%);
+            position: relative;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+            transition: transform 0.35s ease;
+        }
+        .testimony-card:hover .testimony-photo { transform: scale(1.02); }
+
+        .testimony-photo-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 243, 236, 0.45);
+        }
+
+        .testimony-name {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .testimony-title {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            line-height: 1.3;
+            color: var(--color-text);
+            transition: color 0.2s;
+        }
+        .testimony-card:hover .testimony-title { color: var(--color-accent); }
+
+        /* === FOOTER === */
+        .site-footer {
+            padding: 3rem;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        .footer-note {
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* === MOCKUP LABEL === */
+        .mockup-label {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0.5;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="/" class="logo">
+            <picture>
+                <source srcset="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" media="(prefers-color-scheme: light)">
+                <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+            </picture>
+        </a>
+        <nav>
+            <a href="#the-stage">The Stage</a>
+            <a href="#teachings">Teachings</a>
+            <a href="#foundations">Foundations</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ===================== HERO ===================== -->
+        <section class="hero">
+            <span class="hero-bg-truth" aria-hidden="true">TRUTH</span>
+            <span class="hero-bg-grace" aria-hidden="true">GRACE</span>
+
+            <!-- SCRIPTURE WATERMARKS — edit entries in design/scripture-watermarks.md -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref lg" style="top:14%; left:3%; --r:-4deg;">
+                    Trust in the LORD with all your heart<br>
+                    <small>Proverbs 3:5 (ESV)</small>
+                </span>
+                <span class="vref sm" style="bottom:18%; right:4%; --r:3deg;">
+                    Your word is a lamp to my feet<br>
+                    <small>Psalm 119:105 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="hero-content">
+                <p class="eyebrow">For The Soul</p>
+                <h1 class="hero-headline">
+                    Deep <span class="word-truth">truth.</span>
+                </h1>
+                <p class="hero-sub">Beautifully told.</p>
+                <div class="amber-rule"></div>
+                <a href="#teachings" class="hero-cta">Enter the Teachings &rarr;</a>
+            </div>
+
+            <div class="scroll-hint" aria-hidden="true">
+                <span class="scroll-line"></span>
+                <span>Scroll</span>
+            </div>
+        </section>
+
+        <!-- ===================== THE STAGE ===================== -->
+        <section class="section-stage" id="the-stage">
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref md" style="bottom:14%; left:4%; --r:-3deg;">
+                    In the beginning was the Word<br>
+                    <small>John 1:1 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="stage-text">
+                <span class="section-label">Now on The Stage</span>
+                <h2>The Book of Proverbs —<br><em>An Immersive Study</em></h2>
+                <p>Enter the world of ancient wisdom. An interactive experience woven through video, text, and reflection — designed to stay with you long after you leave.</p>
+                <a href="#" class="btn-stage">Enter the Stage &rarr;</a>
+            </div>
+
+            <div class="stage-panel">
+                <div class="stage-panel-label">Interactive Experience</div>
+            </div>
+        </section>
+
+        <!-- ===================== TEACHINGS ===================== -->
+        <section class="section-teachings" id="teachings">
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref sm" style="top:8%; right:3%; --r:3deg;">
+                    The fear of the LORD is the beginning of wisdom<br>
+                    <small>Proverbs 9:10 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="teachings-inner" style="position:relative; z-index:1;">
+                <span class="section-label">Now Teaching</span>
+
+                <div class="featured-teaching">
+                    <div class="featured-thumb">
+                        <div class="play-hint">
+                            <div class="play-circle">
+                                <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+                            </div>
+                            <span class="play-label">The Book of Proverbs</span>
+                        </div>
+                    </div>
+                    <div class="featured-info">
+                        <p class="series-tag">Series &middot; Proverbs</p>
+                        <h2>The Book of Proverbs</h2>
+                        <p>A cinematic journey through ancient wisdom — what it demands, what it promises, and why it still speaks into the modern world.</p>
+                        <a href="#" class="link-cta">Watch the Teaching &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="teachings-grid-header">
+                    <h3>More from the Library</h3>
+                    <a href="#" class="link-cta">All Teachings &rarr;</a>
+                </div>
+
+                <div class="teaching-grid">
+                    <a href="#" class="teaching-card">
+                        <div class="teaching-card-thumb"></div>
+                        <p class="teaching-card-tag">Doctrine</p>
+                        <h3 class="teaching-card-title">The fear of the Lord is not what you think</h3>
+                    </a>
+                    <a href="#" class="teaching-card">
+                        <div class="teaching-card-thumb"></div>
+                        <p class="teaching-card-tag">Foundations</p>
+                        <h3 class="teaching-card-title">Why does God let bad things happen?</h3>
+                    </a>
+                    <a href="#" class="teaching-card">
+                        <div class="teaching-card-thumb"></div>
+                        <p class="teaching-card-tag">Proverbs &middot; Series</p>
+                        <h3 class="teaching-card-title">What wisdom actually demands of you</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== FOUNDATIONS ===================== -->
+        <section class="section-foundations" id="foundations">
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref md" style="top:10%; right:3%; --r:4deg;">
+                    For God so loved the world<br>
+                    <small>John 3:16 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="foundations-inner">
+                <span class="section-label">Start Here</span>
+                <h2>Foundations</h2>
+                <p class="section-intro">A self-paced path for those beginning the faith journey — or returning to it. Four steps. No prior knowledge required.</p>
+
+                <div class="steps-row">
+                    <div class="step">
+                        <span class="step-num">01</span>
+                        <h3>Who is God?</h3>
+                        <p>Start at the beginning. What the Bible actually says about who God is and why it matters.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">02</span>
+                        <h3>Who am I?</h3>
+                        <p>What it means to be human — made, broken, and pursued by a God who does not give up.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">03</span>
+                        <h3>What is the Gospel?</h3>
+                        <p>The best news ever announced — and what it actually costs, and gives, to receive it.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">04</span>
+                        <h3>Now what?</h3>
+                        <p>What life looks like after saying yes — and where to go from here.</p>
+                    </div>
+                </div>
+
+                <a href="#" class="btn-solid">Begin the Path &rarr;</a>
+            </div>
+        </section>
+
+        <!-- ===================== GOD AT WORK ===================== -->
+        <section class="section-testimonies">
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref lg" style="bottom:12%; left:3%; --r:-3deg;">
+                    He who began a good work in you<br>
+                    <small>Philippians 1:6 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="testimonies-inner" style="position:relative; z-index:1;">
+                <span class="section-label">God at Work</span>
+                <h2>Lives being written</h2>
+                <p class="section-intro">Real people. Real stories. The gospel moving in ordinary lives — told the way it deserves to be.</p>
+
+                <div class="testimony-grid">
+                    <a href="#" class="testimony-card">
+                        <div class="testimony-photo">
+                            <span class="testimony-photo-label">Read Story</span>
+                        </div>
+                        <p class="testimony-name">Marcus A.</p>
+                        <h3 class="testimony-title">From the edge of faith to the centre of grace</h3>
+                    </a>
+                    <a href="#" class="testimony-card">
+                        <div class="testimony-photo">
+                            <span class="testimony-photo-label">Read Story</span>
+                        </div>
+                        <p class="testimony-name">Priya S.</p>
+                        <h3 class="testimony-title">The question I was afraid to ask — and the answer that changed everything</h3>
+                    </a>
+                    <a href="#" class="testimony-card">
+                        <div class="testimony-photo">
+                            <span class="testimony-photo-label">Read Story</span>
+                        </div>
+                        <p class="testimony-name">Daniel O.</p>
+                        <h3 class="testimony-title">What grief taught me about the resurrection</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+        <p class="footer-brand">For The Soul</p>
+        <p class="footer-note">Scripture quotations marked (ESV) are from the ESV&reg; Bible (The Holy Bible, English Standard Version&reg;), copyright &copy; 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.</p>
+    </footer>
+
+    <div class="mockup-label">Mockup A — Full Homepage</div>
+
+</body>
+</html>

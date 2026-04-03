@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experimental Design - ForTheSoul</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Dynamic Mesh Gradient Background -->
+    <div class="mesh-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Scripture Watermarks -->
+    <div class="watermarks" aria-hidden="true" pointer-events="none">
+        <div class="watermark wm-1">Trust in the LORD with all your heart... | Proverbs 3:5 (ESV)</div>
+        <div class="watermark wm-2">In the beginning was the Word... | John 1:1 (ESV)</div>
+        <div class="watermark wm-3">Your word is a lamp to my feet... | Psalm 119:105 (ESV)</div>
+        <div class="watermark wm-4">Be still, and know that I am God. | Psalm 46:10 (ESV)</div>
+    </div>
+
+    <div class="wrapper">
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 22h20L12 2z"></path>
+                </svg>
+                <span>Incite at Columbia</span>
+            </div>
+            <nav class="nav">
+                <button class="menu-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </nav>
+        </header>
+
+        <main class="content">
+            <!-- Hero Section mimicking Obama site Structure -->
+            <section class="module hero-module">
+                <div class="hero">
+                    <div class="hero-content">
+                        <div class="hero-eyebrow">A Collection of Faith</div>
+                        <h1 class="hero-title">
+                            <strong>The Living Word</strong>
+                            as told by believers, seekers, and extraordinary people from all walks of life.
+                        </h1>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="video-stack">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Placeholder person">
+                                <figcaption>
+                                    <p class="name">Elena Rodriguez</p>
+                                    <p class="role">Community Leader</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <!-- Signature Bracket -->
+                <div class="hero-bracket">
+                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M0,20 C50,20 80,100 200,100 L1000,100 C1120,100 1150,20 1200,20 L1200,0 L0,0 Z" fill="currentColor"></path>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- Stories/Interviews Grid Section -->
+            <section class="module grid-module">
+                <div class="module-header">
+                    <div class="header-line"></div>
+                    <div class="module-title-wrapper">
+                        <div class="module-amount">462</div>
+                        <h2 class="module-title">Stories</h2>
+                        <div class="dotted-line"></div>
+                        <p class="module-subtitle">Explore oral histories in the collection.</p>
+                    </div>
+                </div>
+
+                <ul class="stories-grid">
+                    <li class="story-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Placeholder">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-name">Marcus<br>Chen</h3>
+                            <div class="dotted-line small"></div>
+                            <p class="card-role">Youth Pastor</p>
+                        </div>
+                    </li>
+                    <li class="story-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Placeholder">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-name">Sarah<br>Jenkins</h3>
+                            <div class="dotted-line small"></div>
+                            <p class="card-role">Author</p>
+                        </div>
+                    </li>
+                    <li class="story-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Placeholder">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-name">David<br>Okafor</h3>
+                            <div class="dotted-line small"></div>
+                            <p class="card-role">Theologian</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="explore-button">
+                    <span>Explore all stories</span> &rarr;
+                </button>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup C — The Cinematic Gate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock:ital@0;1&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-jet-black:     #0a2d33;
+            --color-sky-blue:      #86c5d6;
+            --color-sky-blue-dark: #77a5af;
+            --color-pale-oak:      #e4ccaa;
+            --color-seashell:      #fff3ec;
+            --color-amber:         #d38c24;
+            --color-jet-black-80:  rgba(10, 45, 51, 0.8);
+            --color-seashell-80:   rgba(255, 243, 236, 0.8);
+
+            --color-bg:            var(--color-seashell);
+            --color-text:          var(--color-jet-black);
+            --color-text-muted:    var(--color-jet-black-80);
+            --color-accent:        var(--color-sky-blue-dark);
+            --color-highlight:     var(--color-sky-blue-dark);
+            --color-border:        var(--color-pale-oak);
+
+            --font-heading: "Gloock", serif;
+            --font-body:    "Jost", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* === HEADER — hidden until scroll === */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            height: 68px;
+            z-index: 100;
+            background: rgba(255, 243, 236, 0.97);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .site-header.visible { transform: translateY(0); }
+
+        .site-header .logo img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .site-header nav {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .site-header nav a:hover { color: var(--color-text); }
+
+        /* === HERO — cinematic full viewport === */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Simulated video background — slow drifting dark gradients */
+        .hero-video-sim {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 60%, rgba(134, 197, 214, 0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 25%, rgba(119, 165, 175, 0.12) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 80%, rgba(211, 140, 36, 0.08) 0%, transparent 40%),
+                linear-gradient(160deg, #fff3ec 0%, #fef8f3 35%, #fdf5ee 65%, #fff3ec 100%);
+            background-size: 300% 300%, 300% 300%, 300% 300%, 100% 100%;
+            animation: cinematic-drift 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes cinematic-drift {
+            0%   { background-position: 0% 0%, 100% 100%, 50% 0%, 0 0; }
+            33%  { background-position: 100% 50%, 0% 50%, 0% 100%, 0 0; }
+            66%  { background-position: 50% 100%, 50% 0%, 100% 50%, 0 0; }
+            100% { background-position: 100% 0%, 0% 100%, 50% 100%, 0 0; }
+        }
+
+        /* Dark overlay */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 243, 236, 0.25);
+        }
+
+        /* Fixed logo top-left — always visible in hero */
+        .hero-logo {
+            position: absolute;
+            top: 2rem;
+            left: 3rem;
+            z-index: 10;
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero-logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        /* Center content */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-headline {
+            font-family: var(--font-heading);
+            font-size: clamp(2.75rem, 7vw, 7.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+            opacity: 0;
+            animation: fade-up 1s ease forwards;
+            animation-delay: 0.7s;
+        }
+
+        .hero-headline em {
+            font-style: italic;
+        }
+
+        .amber-rule {
+            width: 40px;
+            height: 1px;
+            background: var(--color-highlight);
+            margin: 2rem auto;
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards;
+            animation-delay: 1.2s;
+        }
+
+        .scroll-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards;
+            animation-delay: 1.5s;
+        }
+
+        /* Animated scroll arrow */
+        .scroll-arrow {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            animation: fade-in 1s ease forwards;
+            animation-delay: 2s;
+        }
+
+        .arrow-line {
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(to bottom, var(--color-border), transparent);
+            animation: arrow-pulse 2s ease-in-out infinite;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes arrow-pulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50%       { opacity: 0.8; transform: scaleY(1.15); }
+        }
+
+        /* Keyframes */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === BELOW FOLD — content section === */
+        .section-enter {
+            padding: 6rem 3rem;
+            border-top: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-enter-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-highlight);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .section-enter h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3.75rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-enter p {
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .enter-cta {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            border-bottom: 1px solid rgba(134, 197, 214, 0.35);
+            padding-bottom: 2px;
+        }
+
+        /* === ROCK SALT FONT === */
+        @font-face {
+            font-family: 'Rock Salt';
+            src: url('../src/assets/fonts/Rock_Salt (1)/RockSalt-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        /* === SCRIPTURE WATERMARKS === */
+        .scripture-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .vref {
+            position: absolute;
+            font-family: 'Rock Salt', cursive;
+            color: var(--color-jet-black);
+            opacity: 0.07;
+            line-height: 1.5;
+            transform: rotate(var(--r, -3deg));
+        }
+        .vref small { display: block; font-size: 0.65em; margin-top: 0.2em; }
+        .vref.sm { font-size: clamp(0.65rem, 1vw, 0.85rem); }
+        .vref.md { font-size: clamp(0.8rem, 1.4vw, 1.1rem); }
+        .vref.lg { font-size: clamp(0.95rem, 1.7vw, 1.4rem); }
+
+        /* === LABEL === */
+        .mockup-label {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0.5;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav — hidden until scroll -->
+    <header class="site-header" id="site-header">
+        <a href="/" class="logo">
+            <picture>
+                <source srcset="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" media="(prefers-color-scheme: light)">
+                <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+            </picture>
+        </a>
+        <nav>
+            <a href="#">Teachings</a>
+            <a href="#">The Stage</a>
+            <a href="#">Foundations</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-video-sim" aria-hidden="true"></div>
+            <div class="hero-overlay" aria-hidden="true"></div>
+
+            <!-- Logo visible in hero -->
+            <div class="hero-logo">
+                <picture>
+                    <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+                </picture>
+            </div>
+
+            <div class="hero-content">
+                <h1 class="hero-headline">
+                    Deep <em>truth.</em><br>Beautifully told.
+                </h1>
+                <div class="amber-rule"></div>
+                <span class="scroll-label">Scroll to Enter</span>
+            </div>
+
+            <div class="scroll-arrow" aria-hidden="true">
+                <div class="arrow-line"></div>
+            </div>
+        </section>
+
+        <section class="section-enter">
+            <!-- SCRIPTURE WATERMARKS — edit entries in design/scripture-watermarks.md -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref lg" style="top:12%; left:3%; --r:-4deg;">
+                    Trust in the LORD with all your heart<br>
+                    <small>Proverbs 3:5 (ESV)</small>
+                </span>
+                <span class="vref sm" style="bottom:15%; right:4%; --r:3deg;">
+                    In the beginning was the Word<br>
+                    <small>John 1:1 (ESV)</small>
+                </span>
+            </div>
+            <div class="section-enter-inner" style="position:relative; z-index:1;">
+                <span class="section-label">Now Teaching</span>
+                <h2>The Book of Proverbs</h2>
+                <p>A cinematic journey through ancient wisdom — what it demands, what it promises, and why it still matters in the modern world.</p>
+                <a href="#" class="enter-cta">Watch the Teaching &rarr;</a>
+            </div>
+        </section>
+    </main>
+
+    <div class="mockup-label">Mockup C — The Cinematic Gate</div>
+
+    <script>
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('visible', window.scrollY > 80);
+        }, { passive: true });
+    </script>
+
+</body>
+</html>
