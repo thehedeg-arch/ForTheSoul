@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup D — For The Soul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock:ital@0;1&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ====================================================
+           DESIGN TOKENS
+        ==================================================== */
+        :root {
+            --color-jet-black:     #0a2d33;
+            --color-sky-blue:      #86c5d6;
+            --color-sky-blue-dark: #77a5af;
+            --color-pale-oak:      #e4ccaa;
+            --color-seashell:      #fff3ec;
+            --color-amber:         #d38c24;
+            --color-olive-leaf:    #4b5b34;
+            --color-powder-blush:  #eaa099;
+            --color-oxblood:       #980204;
+            --color-amber-earth:   #ea8914;
+            --color-jet-black-80:  rgba(10, 45, 51, 0.8);
+            --color-seashell-80:   rgba(255, 243, 236, 0.8);
+
+            --color-bg:            var(--color-seashell);
+            --color-text:          var(--color-jet-black);
+            --color-text-muted:    var(--color-jet-black-80);
+            --color-accent:        var(--color-sky-blue-dark);
+            --color-border:        var(--color-pale-oak);
+
+            --font-heading: "Playfair Display", serif;
+            --font-gloock:  "Gloock", serif;
+            --font-body:    "Jost", sans-serif;
+
+            --section-pad: 6rem 3rem;
+            --max-w:       1100px;
+        }
+
+        /* ====================================================
+           RESET
+        ==================================================== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ====================================================
+           SCRIPTURE WATERMARK LAYER
+        ==================================================== */
+        .scripture-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .vref {
+            position: absolute;
+            font-family: "Courier New", Courier, monospace;
+            color: var(--color-jet-black);
+            opacity: 0.09;
+            line-height: 1.55;
+            letter-spacing: 0.02em;
+            transform: rotate(var(--r, -3deg));
+            max-width: 180px;
+        }
+        .vref small {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.6em;
+            letter-spacing: 0.06em;
+            margin-top: 0.5em;
+            opacity: 0.7;
+        }
+        .vref.sm { font-size: clamp(0.6rem, 0.85vw, 0.75rem); }
+        .vref.md { font-size: clamp(0.7rem, 1vw, 0.85rem); }
+        .vref.lg { font-size: clamp(0.8rem, 1.15vw, 0.95rem); }
+
+        /* Dark section watermarks flip to seashell */
+        .section-invitation .vref  { color: var(--color-seashell); opacity: 0.07; }
+        .section-testimonies .vref { color: var(--color-seashell); opacity: 0.13; }
+
+        /* Boundary watermarks — gradient text that splits at the section seam */
+        .vref-boundary {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 1;
+            color: transparent;
+        }
+        /* Dark section → light section (seashell on dark top, jet-black on light bottom) */
+        .vref-boundary.to-light {
+            background-image: linear-gradient(to bottom,
+                rgba(255, 243, 236, 0.15) 50%,
+                rgba(10, 45, 51, 0.10) 50%
+            );
+        }
+        /* Light section → dark section (jet-black on light top, seashell on dark bottom) */
+        .vref-boundary.to-dark {
+            background-image: linear-gradient(to bottom,
+                rgba(10, 45, 51, 0.10) 50%,
+                rgba(255, 243, 236, 0.15) 50%
+            );
+        }
+        /* Warm/light section → dark section (pale-oak bg) */
+        .vref-boundary.oak-to-dark {
+            background-image: linear-gradient(to bottom,
+                rgba(10, 45, 51, 0.12) 50%,
+                rgba(255, 243, 236, 0.15) 50%
+            );
+        }
+
+        /* ====================================================
+           SHARED UTILITIES
+        ==================================================== */
+        .section-label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .section-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.875rem 1.75rem;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-solid {
+            background: var(--color-oxblood);
+            color: var(--color-seashell);
+        }
+        .btn-solid:hover { background: #7a0103; }
+
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--color-seashell);
+            border: 1px solid rgba(255, 243, 236, 0.4);
+        }
+        .btn-outline-dark:hover {
+            background: rgba(255, 243, 236, 0.1);
+            border-color: var(--color-seashell);
+        }
+
+        .link-cta {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            border-bottom: 1px solid rgba(119, 165, 175, 0.35);
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+        .link-cta:hover { border-color: var(--color-accent); }
+
+        /* Scroll-reveal */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .animate-on-scroll.in-view {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ====================================================
+           HEADER — hidden until scroll
+        ==================================================== */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            height: 68px;
+            z-index: 100;
+            background: rgba(255, 243, 236, 0.97);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .site-header.visible { transform: translateY(0); }
+
+        .site-header .logo img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+
+        .site-header nav {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+        .site-header nav a:hover { color: var(--color-text); }
+
+        .site-header nav .nav-stage {
+            color: var(--color-oxblood);
+            border: 1px solid var(--color-oxblood);
+            padding: 0.22rem 0.85rem;
+            letter-spacing: 0.12em;
+            line-height: 1;
+            transition: background 0.2s, color 0.2s;
+        }
+        .site-header nav .nav-stage:hover {
+            background: var(--color-oxblood);
+            color: var(--color-seashell);
+        }
+
+        /* ====================================================
+           HERO — TRUTH / GRACE stagger
+        ==================================================== */
+
+        /* Dynamic radial gradient — entrance + breathing (hero only) */
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform, opacity;
+            animation: hero-gradient-enter 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        @keyframes hero-gradient-enter {
+            from { opacity: 0; transform: scale(1.5); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* TRUTH — upper left */
+        .hero-bg-truth {
+            position: absolute;
+            font-family: var(--font-heading);
+            font-size: clamp(8rem, 11vw, 14rem);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--color-sky-blue);
+            opacity: 0.22;
+            user-select: none;
+            pointer-events: none;
+            top: 12%;
+            left: -0.02em;
+            z-index: 0;
+        }
+
+        /* GRACE — lower right, larger, italic, overlapping */
+        .hero-bg-grace {
+            position: absolute;
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: clamp(14rem, 25vw, 30rem);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--color-sky-blue);
+            opacity: 0.22;
+            user-select: none;
+            pointer-events: none;
+            bottom: 18%;
+            right: -0.08em;
+            z-index: 0;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 2rem;
+            left: 3rem;
+            z-index: 10;
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards 0.2s;
+        }
+        .hero-logo img { height: 48px; width: auto; }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards 0.5s;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-headline {
+            font-family: var(--font-gloock);
+            font-size: clamp(3rem, 7vw, 7.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+            opacity: 0;
+            animation: fade-up 1s ease forwards 0.7s;
+        }
+        .hero-headline em { font-style: italic; }
+
+        .hero-rule {
+            width: 40px;
+            height: 1px;
+            background: var(--color-accent);
+            margin: 2rem auto;
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards 1.2s;
+        }
+
+        .hero-scroll-label {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0;
+            animation: fade-in 0.8s ease forwards 1.5s;
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            animation: fade-in 1s ease forwards 2s;
+        }
+        .arrow-line {
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(to bottom, var(--color-border), transparent);
+            animation: arrow-pulse 2s ease-in-out infinite 2.5s;
+        }
+
+        /* ====================================================
+           PILLARS OF BELIEF
+        ==================================================== */
+        .section-pillars {
+            padding: var(--section-pad);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .pillars-header {
+            max-width: 560px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .pillars-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.25rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .pillars-header p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.75;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5px;
+            background: var(--color-border);
+        }
+
+        @media (max-width: 860px) {
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .pillars-grid { grid-template-columns: 1fr; }
+        }
+
+        .pillar-card {
+            background: var(--color-seashell);
+            padding: 2.25rem 2rem 2rem;
+            position: relative;
+            transition: transform 0.25s ease;
+            cursor: default;
+        }
+        .pillar-card:hover { transform: translateY(-8px); }
+
+        .pillar-card::before {
+            content: '';
+            display: block;
+            height: 3px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .pillar-card[data-accent="sky"]::before    { background: var(--color-sky-blue); }
+        .pillar-card[data-accent="teal"]::before   { background: var(--color-sky-blue-dark); }
+        .pillar-card[data-accent="amber"]::before  { background: var(--color-amber); }
+        .pillar-card[data-accent="oak"]::before    { background: var(--color-pale-oak); }
+
+        .pillar-index {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            line-height: 1.15;
+            margin-bottom: 0.875rem;
+        }
+
+        .pillar-desc {
+            font-size: 0.88rem;
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ====================================================
+           THE INVITATION — dark Stage banner
+        ==================================================== */
+        .section-invitation {
+            padding: var(--section-pad);
+            background: var(--color-jet-black);
+            color: var(--color-seashell);
+            position: relative;
+            text-align: center;
+        }
+
+        /* *** LOCKED — approved by Henok 2026-04-03. Do not modify. ***
+           Large italic "Truth" at 3% opacity on jet-black creates the
+           gradient depth effect. Playfair Display italic + seashell color
+           + massive clamp size + right bleed = the look. Do not touch. */
+        .invitation-bg-word {
+            position: absolute;
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: clamp(18vw, 24vw, 32vw);
+            line-height: 1;
+            color: var(--color-seashell);
+            opacity: 0.03;
+            user-select: none;
+            pointer-events: none;
+            right: -0.1em;
+            top: 50%;
+            transform: translateY(-50%);
+            letter-spacing: -0.03em;
+            z-index: 0;
+        }
+
+        .section-invitation .section-label  { color: var(--color-sky-blue); }
+        .section-topics .section-label      { color: var(--color-amber-earth); }
+
+        .invitation-quote {
+            font-family: var(--font-gloock);
+            font-style: italic;
+            font-size: clamp(1.75rem, 3.5vw, 3.25rem);
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+            max-width: 820px;
+            margin: 0 auto 1.25rem;
+            color: var(--color-seashell);
+        }
+
+        .invitation-attribution {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255, 243, 236, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .invitation-body {
+            font-size: 0.95rem;
+            color: rgba(255, 243, 236, 0.65);
+            max-width: 520px;
+            margin: 0 auto 2.75rem;
+            line-height: 1.75;
+        }
+
+        /* ====================================================
+           TEACHINGS & TESTIMONIES
+        ==================================================== */
+        .section-teachings {
+            padding: var(--section-pad);
+            position: relative;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .teachings-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .teachings-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .teachings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 860px) {
+            .teachings-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .teachings-grid { grid-template-columns: 1fr; }
+        }
+
+        .teaching-card {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .teaching-card:hover { transform: translateY(-4px); }
+
+        .teaching-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #0d1e22 0%, #071318 50%, #0a2025 100%);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Teal corner accent (same pattern as mockup-b) */
+        .teaching-thumb::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 2px; height: 40px;
+            background: var(--color-accent);
+        }
+        .teaching-thumb::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 40px; height: 2px;
+            background: var(--color-accent);
+        }
+
+        .play-hint {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .play-circle {
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255, 243, 236, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .play-circle svg {
+            width: 12px;
+            height: 12px;
+            fill: var(--color-seashell);
+            margin-left: 2px;
+        }
+
+        .play-label {
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 243, 236, 0.5);
+        }
+
+        .teaching-tag {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .teaching-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            line-height: 1.25;
+            margin-bottom: 0.625rem;
+        }
+
+        .teaching-desc {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            line-height: 1.65;
+            margin-bottom: 0.75rem;
+        }
+
+        .teaching-meta {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.08em;
+        }
+
+        .teachings-footer {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        /* ====================================================
+           TOPICS — 8 circular doctrine items
+        ==================================================== */
+        .section-topics {
+            padding: var(--section-pad);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        /* Decorative background rings */
+        .section-topics::before,
+        .section-topics::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid var(--color-sky-blue);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .section-topics::before {
+            width: 600px; height: 600px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.35;
+        }
+        .section-topics::after {
+            width: 900px; height: 900px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--color-sky-blue);
+            opacity: 0.30;
+        }
+
+        .topics-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .topics-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.25rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .topics-quote {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .topics-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem 7rem;
+        }
+
+        .topic-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .topic-circle {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            border: 1px solid var(--color-sky-blue-dark);
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+
+        .topic-item:hover .topic-circle {
+            border-color: var(--color-sky-blue);
+            background: rgba(134, 197, 214, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .topic-circle span {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            transition: color 0.2s ease;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0 0.5rem;
+        }
+
+        .topic-item:hover .topic-circle span { color: var(--color-text); }
+
+        .topic-label {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .topic-item:hover .topic-label { color: var(--color-text); }
+
+        /* ====================================================
+           TESTIMONIES & ENCOURAGEMENT
+        ==================================================== */
+        .section-testimonies {
+            padding: var(--section-pad);
+            background: var(--color-jet-black);
+            color: var(--color-seashell);
+            position: relative;
+            border-top: 1px solid rgba(255, 243, 236, 0.06);
+        }
+
+        .section-testimonies .section-label { color: var(--color-powder-blush); }
+
+        .testimonies-header {
+            max-width: 580px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .testimonies-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--color-seashell);
+            margin-bottom: 1rem;
+        }
+
+        .testimonies-header p {
+            font-size: 0.92rem;
+            color: rgba(255, 243, 236, 0.6);
+            line-height: 1.75;
+        }
+
+        .testimonies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 760px) {
+            .testimonies-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+        }
+
+        .testimony-card {
+            cursor: pointer;
+            transition: transform 0.25s ease;
+        }
+        .testimony-card:hover { transform: translateY(-6px); }
+
+        .testimony-thumb {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(160deg, #0f2228 0%, #071318 60%, #0a1f25 100%);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Teal corner accent — matches teaching thumbs */
+        .testimony-thumb::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 2px; height: 40px;
+            background: var(--color-sky-blue);
+        }
+        .testimony-thumb::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 40px; height: 2px;
+            background: var(--color-sky-blue);
+        }
+
+        .testimony-inner {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+        }
+
+        .testimony-tag {
+            font-size: 0.58rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--color-sky-blue);
+            margin-bottom: 0.4rem;
+        }
+
+        .testimony-name {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            line-height: 1.2;
+            color: var(--color-seashell);
+        }
+
+        .testimony-meta {
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            line-height: 1.65;
+            margin-bottom: 0.625rem;
+        }
+
+        .testimony-pray {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-sky-blue);
+            border-bottom: 1px solid rgba(134, 197, 214, 0.35);
+            padding-bottom: 2px;
+            display: inline-block;
+            transition: border-color 0.2s;
+        }
+        .testimony-card:hover .testimony-pray { border-color: var(--color-sky-blue); }
+
+        /* Watermark override handled in shared scripture-layer rules above */
+
+        /* ====================================================
+           LATEST TEACHINGS — pale-oak rows
+        ==================================================== */
+        .section-latest {
+            padding: var(--section-pad);
+            background: var(--color-pale-oak);
+            position: relative;
+        }
+
+        .latest-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .latest-heading span {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .latest-heading em {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .latest-list {
+            border-top: 1px solid rgba(10, 45, 51, 0.15);
+        }
+
+        .latest-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid rgba(10, 45, 51, 0.15);
+            transition: padding-left 0.2s ease;
+            cursor: pointer;
+        }
+        .latest-row:hover { padding-left: 0.5rem; }
+
+        .latest-date {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--color-jet-black-80);
+            white-space: nowrap;
+            min-width: 80px;
+        }
+
+        .latest-title {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            line-height: 1.2;
+            flex: 1;
+        }
+
+        .latest-badge {
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-jet-black-80);
+            border: 1px solid rgba(10, 45, 51, 0.3);
+            padding: 0.25rem 0.625rem;
+            white-space: nowrap;
+        }
+
+        .latest-arrow {
+            font-size: 1rem;
+            color: var(--color-accent);
+            transition: transform 0.2s ease;
+        }
+        .latest-row:hover .latest-arrow { transform: translateX(4px); }
+
+        /* ====================================================
+           FOOTER
+        ==================================================== */
+        .site-footer {
+            padding: 5rem 3rem 3rem;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .footer-logo img {
+            height: 36px;
+            width: auto;
+            margin: 0 auto 1.5rem;
+            display: block;
+            opacity: 0.85;
+        }
+
+        .footer-headline {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+        .footer-headline em { font-style: italic; }
+
+        .footer-sub {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Email subscribe */
+        .subscribe-row {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 420px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .subscribe-input {
+            flex: 1;
+            padding: 0.875rem 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-right: none;
+            color: var(--color-text);
+            outline: none;
+        }
+        .subscribe-input::placeholder { color: var(--color-text-muted); }
+        .subscribe-input:focus { border-color: var(--color-accent); }
+
+        .subscribe-btn {
+            padding: 0.875rem 1.5rem;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--color-oxblood);
+            color: var(--color-seashell);
+            border: 1px solid var(--color-oxblood);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .subscribe-btn:hover { background: #7a0103; border-color: #7a0103; }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 3rem;
+        }
+        .footer-nav a:hover { color: var(--color-text); }
+
+        .footer-esv {
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            max-width: 640px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .footer-copy {
+            font-size: 0.68rem;
+            color: var(--color-text-muted);
+            opacity: 0.6;
+        }
+
+        /* ====================================================
+           KEYFRAMES
+        ==================================================== */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes arrow-pulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50%       { opacity: 0.8; transform: scaleY(1.15); }
+        }
+
+        /* ====================================================
+           MOCKUP LABEL
+        ==================================================== */
+        .mockup-label {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            opacity: 0.45;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =====================================================
+         HEADER — slides in on scroll
+    ====================================================== -->
+    <header class="site-header" id="site-header">
+        <a href="/" class="logo">
+            <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+        </a>
+        <nav>
+            <a href="#the-stage" class="nav-stage">The Stage</a>
+            <a href="#teachings">Teachings</a>
+            <a href="#testimonies">Living Proof</a>
+            <a href="#foundations">Foundations</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ==================================================
+             HERO
+        =================================================== -->
+        <section class="hero">
+            <!-- Animated radial gradient — breathes in on load, pulses slowly -->
+            <div class="hero-gradient" id="hero-gradient" aria-hidden="true"></div>
+
+            <span class="hero-bg-truth" aria-hidden="true">TRUTH</span>
+            <span class="hero-bg-grace" aria-hidden="true">GRACE</span>
+
+            <div class="hero-logo">
+                <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+            </div>
+
+            <div class="hero-content">
+                <p class="hero-eyebrow">Come · Learn · Believe</p>
+                <h1 class="hero-headline">
+                    Deep <em>truth.</em><br>Beautifully told.
+                </h1>
+                <div class="hero-rule"></div>
+                <span class="hero-scroll-label">Scroll to Enter</span>
+            </div>
+
+            <div class="scroll-arrow" aria-hidden="true">
+                <div class="arrow-line"></div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             THE INVITATION — The Stage (dark)
+        =================================================== -->
+        <section class="section-invitation" id="the-stage">
+            <span class="invitation-bg-word" aria-hidden="true">Truth</span>
+
+            <!-- Scripture watermark — bottom seam: Stage (dark) → Teachings (light) -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref-boundary to-light vref md" style="bottom:-3rem; left:2%; --r:-3deg;">
+                    I thank my God in all my remembrance of you<br>
+                    <small>Philippians 1:3 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="section-inner">
+                <div class="animate-on-scroll">
+                    <span class="section-label">The Stage</span>
+                    <blockquote class="invitation-quote">
+                        "In the beginning was the Word, and the Word was with God, and the Word was God."
+                    </blockquote>
+                    <p class="invitation-attribution">John 1:1 (ESV)</p>
+                    <p class="invitation-body">The Stage is an immersive study experience — cinematic teaching designed to draw you deeper into the Word than a Sunday morning ever could.</p>
+                    <a href="#" class="btn btn-outline-dark">Enter the Stage &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             TEACHINGS & TESTIMONIES
+        =================================================== -->
+        <section class="section-teachings" id="teachings">
+            <!-- Scripture watermark — bottom seam: Teachings (light) → Latest (pale-oak) -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref md" style="bottom:-3rem; right:2%; --r:3deg;">
+                    Your word is a lamp to my feet<br>
+                    and a light to my path<br>
+                    <small>Psalm 119:105 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="section-inner">
+                <div class="teachings-header animate-on-scroll">
+                    <div>
+                        <span class="section-label">Now Teaching</span>
+                        <h2>Teachings &amp; Articles</h2>
+                    </div>
+                    <a href="#" class="link-cta">View Archive &rarr;</a>
+                </div>
+
+                <div class="teachings-grid animate-on-scroll">
+                    <div class="teaching-card">
+                        <div class="teaching-thumb">
+                            <div class="play-hint">
+                                <div class="play-circle">
+                                    <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+                                </div>
+                                <span class="play-label">12:45</span>
+                            </div>
+                        </div>
+                        <p class="teaching-tag">Proverbs &middot; Series</p>
+                        <h3 class="teaching-title">What wisdom actually demands of you</h3>
+                        <p class="teaching-desc">A deep dive into the theological roots of wisdom and its practical weight in the modern world.</p>
+                        <span class="teaching-meta">Teaching</span>
+                    </div>
+
+                    <div class="teaching-card">
+                        <div class="teaching-thumb">
+                            <div class="play-hint">
+                                <div class="play-circle">
+                                    <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+                                </div>
+                                <span class="play-label">08:20</span>
+                            </div>
+                        </div>
+                        <p class="teaching-tag">Doctrine</p>
+                        <h3 class="teaching-title">The fear of the Lord is not what you think</h3>
+                        <p class="teaching-desc">Unpacking one of the most misunderstood phrases in all of Scripture — and why it changes everything.</p>
+                        <span class="teaching-meta">Teaching</span>
+                    </div>
+
+                    <div class="teaching-card">
+                        <div class="teaching-thumb">
+                            <div class="play-hint">
+                                <div class="play-circle">
+                                    <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+                                </div>
+                                <span class="play-label">05:30</span>
+                            </div>
+                        </div>
+                        <p class="teaching-tag">Article</p>
+                        <h3 class="teaching-title">A journey through grace</h3>
+                        <p class="teaching-desc">A written reflection on transformation — and the discovery of faith in unexpected places.</p>
+                        <span class="teaching-meta">Article</span>
+                    </div>
+                </div>
+
+                <div class="teachings-footer animate-on-scroll">
+                    <a href="#" class="link-cta">View all teachings &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             LATEST TEACHINGS — pale-oak row list
+        =================================================== -->
+        <section class="section-latest" id="latest">
+            <!-- Scripture watermark — bottom seam: Latest (pale-oak) → Testimonies (dark) -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref-boundary oak-to-dark vref lg" style="bottom:-3.5rem; left:2%; --r:-4deg;">
+                    Trust in the LORD with all your heart<br>
+                    <small>Proverbs 3:5 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="section-inner">
+                <div class="animate-on-scroll">
+                    <div class="latest-heading">
+                        <span>Latest</span>&nbsp;<em>Teachings</em>
+                    </div>
+
+                    <div class="latest-list">
+                        <div class="latest-row">
+                            <span class="latest-date">Apr 2026</span>
+                            <span class="latest-title">Understanding the Parables: A Modern Perspective</span>
+                            <span class="latest-badge">Teaching</span>
+                            <span class="latest-arrow">&rarr;</span>
+                        </div>
+                        <div class="latest-row">
+                            <span class="latest-date">Mar 2026</span>
+                            <span class="latest-title">The Role of Faith in the Modern World</span>
+                            <span class="latest-badge">Video</span>
+                            <span class="latest-arrow">&rarr;</span>
+                        </div>
+                        <div class="latest-row">
+                            <span class="latest-date">Feb 2026</span>
+                            <span class="latest-title">A Foundation's Perspective on Global Mission</span>
+                            <span class="latest-badge">Testimony</span>
+                            <span class="latest-arrow">&rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             TESTIMONIES & ENCOURAGEMENT
+        =================================================== -->
+        <section class="section-testimonies" id="testimonies">
+            <!-- Scripture watermark — bottom seam: Testimonies (dark) → Foundations (light) -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref-boundary to-light vref md" style="bottom:-4rem; right:2%; --r:3deg;">
+                    They overcame him by the blood of the Lamb<br>
+                    and by the word of their testimony<br>
+                    <small>Revelation 12:11 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="section-inner">
+                <div class="testimonies-header animate-on-scroll">
+                    <span class="section-label">God at Work</span>
+                    <h2>Lives Being Written</h2>
+                    <p>Real people. Real stories. See what God is doing in ordinary lives — and be moved to pray for them.</p>
+                </div>
+
+                <div class="testimonies-grid animate-on-scroll">
+                    <div class="testimony-card">
+                        <div class="testimony-thumb">
+                            <div class="testimony-inner">
+                                <p class="testimony-tag">Testimony</p>
+                                <h3 class="testimony-name">Sarah M.</h3>
+                            </div>
+                        </div>
+                        <p class="testimony-meta">A story of restoration — how God met her in the middle of grief and turned mourning into purpose.</p>
+                        <a href="#" class="testimony-pray">Pray for Sarah &rarr;</a>
+                    </div>
+
+                    <div class="testimony-card">
+                        <div class="testimony-thumb">
+                            <div class="testimony-inner">
+                                <p class="testimony-tag">Encouragement</p>
+                                <h3 class="testimony-name">James &amp; Lydia K.</h3>
+                            </div>
+                        </div>
+                        <p class="testimony-meta">Married through hardship, this couple's faith became the anchor that held their family together.</p>
+                        <a href="#" class="testimony-pray">Pray for them &rarr;</a>
+                    </div>
+
+                    <div class="testimony-card">
+                        <div class="testimony-thumb">
+                            <div class="testimony-inner">
+                                <p class="testimony-tag">God at Work</p>
+                                <h3 class="testimony-name">Daniel O.</h3>
+                            </div>
+                        </div>
+                        <p class="testimony-meta">From skeptic to servant — a conversion story that is still unfolding one obedient step at a time.</p>
+                        <a href="#" class="testimony-pray">Pray for Daniel &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             FOUNDATIONS — Core Doctrines (Topics circle design)
+        =================================================== -->
+        <section class="section-topics" id="foundations">
+            <!-- Scripture watermark — top of Foundations, bleeds up into Testimonies seam -->
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="vref lg" style="top:-3rem; left:2%; --r:-4deg;">
+                    In the beginning was the Word<br>
+                    <small>John 1:1 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="section-inner">
+                <div class="topics-header animate-on-scroll">
+                    <span class="section-label">Core Doctrines</span>
+                    <h2>Foundations</h2>
+                    <p class="topics-quote">Our faith is built upon these core truths — each one a door into the depth of the Word.</p>
+                </div>
+
+                <div class="topics-grid animate-on-scroll">
+                    <div class="topic-item">
+                        <div class="topic-circle"><span>The<br>Word</span></div>
+                        <span class="topic-label">The Word</span>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-circle"><span>Grace</span></div>
+                        <span class="topic-label">Grace</span>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-circle"><span>Salvation</span></div>
+                        <span class="topic-label">Salvation</span>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-circle"><span>Community</span></div>
+                        <span class="topic-label">Community</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+    <footer class="site-footer">
+        <div class="footer-logo">
+            <img src="../src/assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" alt="For The Soul">
+        </div>
+
+        <h2 class="footer-headline">Learn. Believe.<br><em>Grow in Truth.</em></h2>
+        <p class="footer-sub">New teachings, straight to your inbox.</p>
+
+        <div class="subscribe-row">
+            <input class="subscribe-input" type="email" placeholder="Your email address" aria-label="Email address">
+            <button class="subscribe-btn" type="button">Subscribe</button>
+        </div>
+
+        <nav class="footer-nav">
+            <a href="#the-stage">The Stage</a>
+            <a href="#teachings">Teachings</a>
+            <a href="#foundations">Foundations</a>
+        </nav>
+
+        <p class="footer-esv">
+            Scripture quotations marked (ESV) are from the ESV&reg; Bible (The Holy Bible, English Standard Version&reg;), &copy; 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
+        </p>
+
+        <p class="footer-copy">&copy; 2026 For The Soul</p>
+    </footer>
+
+    <div class="mockup-label">Mockup D — Google Studios Port</div>
+
+    <script>
+        // Hero gradient — breathing radial gradient (ports AnimatedGradientBackground technique)
+        const heroGradient = document.getElementById('hero-gradient');
+        let gWidth = 110, gDir = 1;
+        const G_MIN = 105, G_MAX = 122, G_SPEED = 0.012;
+
+        function breatheGradient() {
+            if (gWidth >= G_MAX) gDir = -1;
+            if (gWidth <= G_MIN) gDir = 1;
+            gWidth += gDir * G_SPEED;
+            heroGradient.style.background = `radial-gradient(
+                ${gWidth}% ${gWidth}% at 50% 20%,
+                #fff3ec 0%,
+                rgba(134, 197, 214, 0.38) 28%,
+                rgba(119, 165, 175, 0.22) 48%,
+                rgba(228, 204, 170, 0.28) 68%,
+                #fff3ec 100%
+            )`;
+            requestAnimationFrame(breatheGradient);
+        }
+        breatheGradient();
+
+        // Header — slide in after hero
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('visible', window.scrollY > 80);
+        }, { passive: true });
+
+        // Scroll-reveal for .animate-on-scroll elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in-view');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
