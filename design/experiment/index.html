@@ -3,136 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experimental Design - ForTheSoul</title>
-    
-    <!-- Fonts -->
+    <title>For The Soul | Experimental Direction</title>
+    <meta
+        name="description"
+        content="An editorial homepage experiment for For The Soul, shaped around teachings, discipleship, and the quiet work of Scripture."
+    >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Jost:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <!-- Dynamic Mesh Gradient Background -->
-    <div class="mesh-bg" aria-hidden="true">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
-    </div>
+    <header class="site-header" id="site-header">
+        <a class="brand" href="#top" aria-label="For The Soul home">
+            <span class="brand-mark">For</span>
+            <span class="brand-word">TheSoul</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+            <a href="#stage">The Stage</a>
+            <a href="#library">Teachings</a>
+            <a href="#foundations">Foundations</a>
+            <a href="#testimonies">Stories</a>
+        </nav>
+        <a class="button button-outline header-button" href="#foundations">Start Here</a>
+    </header>
 
-    <!-- Scripture Watermarks -->
-    <div class="watermarks" aria-hidden="true" pointer-events="none">
-        <div class="watermark wm-1">Trust in the LORD with all your heart... | Proverbs 3:5 (ESV)</div>
-        <div class="watermark wm-2">In the beginning was the Word... | John 1:1 (ESV)</div>
-        <div class="watermark wm-3">Your word is a lamp to my feet... | Psalm 119:105 (ESV)</div>
-        <div class="watermark wm-4">Be still, and know that I am God. | Psalm 46:10 (ESV)</div>
-    </div>
-
-    <div class="wrapper">
-        <header class="header">
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2L2 22h20L12 2z"></path>
-                </svg>
-                <span>Incite at Columbia</span>
+    <main id="top">
+        <section class="hero section">
+            <div class="atmosphere" aria-hidden="true">
+                <div class="orb orb-a"></div>
+                <div class="orb orb-b"></div>
+                <div class="orb orb-c"></div>
             </div>
-            <nav class="nav">
-                <button class="menu-button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
-            </nav>
-        </header>
 
-        <main class="content">
-            <!-- Hero Section mimicking Obama site Structure -->
-            <section class="module hero-module">
-                <div class="hero">
-                    <div class="hero-content">
-                        <div class="hero-eyebrow">A Collection of Faith</div>
-                        <h1 class="hero-title">
-                            <strong>The Living Word</strong>
-                            as told by believers, seekers, and extraordinary people from all walks of life.
-                        </h1>
+            <div class="texture texture-word" aria-hidden="true">WORD</div>
+            <div class="texture texture-soul" aria-hidden="true">SOUL</div>
+
+            <div class="scripture-layer" aria-hidden="true">
+                <span class="watermark lg hero-left">
+                    Trust in the LORD with all your heart
+                    <small>Proverbs 3:5 (ESV)</small>
+                </span>
+                <span class="watermark sm hero-right">
+                    In the beginning was the Word
+                    <small>John 1:1 (ESV)</small>
+                </span>
+            </div>
+
+            <div class="hero-grid">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">For The Soul</p>
+                    <h1 class="hero-title">
+                        Deep truth,
+                        <span>beautifully told.</span>
+                    </h1>
+                    <p class="hero-body">
+                        A quieter kind of ministry platform for teachings, discipleship,
+                        and immersive studies that reach the mind and stay with the soul.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#library">Enter the Library</a>
+                        <a class="button button-quiet" href="#stage">See the Stage</a>
                     </div>
-                    <div class="hero-visual">
-                        <div class="video-stack">
-                            <figure>
-                                <img src="https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Placeholder person">
-                                <figcaption>
-                                    <p class="name">Elena Rodriguez</p>
-                                    <p class="role">Community Leader</p>
-                                </figcaption>
-                            </figure>
+                    <ul class="hero-points" aria-label="For The Soul qualities">
+                        <li>Scripture-led teaching</li>
+                        <li>Cinematic long-form studies</li>
+                        <li>Clear starting points for seekers</li>
+                    </ul>
+                </div>
+
+                <div class="hero-media reveal">
+                    <div class="hero-panel">
+                        <div class="hero-screen">
+                            <p class="panel-label">Now teaching</p>
+                            <h2>The Book of Proverbs</h2>
+                            <p class="panel-copy">
+                                Wisdom for the private places of the heart, built as a slow and immersive study.
+                            </p>
+                            <div class="panel-meta">
+                                <span>12 scenes</span>
+                                <span>guided notes</span>
+                                <span>reflection prompts</span>
+                            </div>
+                            <a class="play-button" href="#library" aria-label="Jump to teachings">
+                                <span class="play-icon"></span>
+                            </a>
+                        </div>
+                        <div class="floating-card floating-card-top">
+                            <p class="floating-label">Series focus</p>
+                            <strong>Wisdom that corrects without hardening</strong>
+                        </div>
+                        <div class="floating-card floating-card-bottom">
+                            <p class="floating-label">Heart of the platform</p>
+                            <strong>Teachings, testimonies, discipleship</strong>
                         </div>
                     </div>
                 </div>
-                <!-- Signature Bracket -->
-                <div class="hero-bracket">
-                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                        <path d="M0,20 C50,20 80,100 200,100 L1000,100 C1120,100 1150,20 1200,20 L1200,0 L0,0 Z" fill="currentColor"></path>
-                    </svg>
-                </div>
-            </section>
+            </div>
 
-            <!-- Stories/Interviews Grid Section -->
-            <section class="module grid-module">
-                <div class="module-header">
-                    <div class="header-line"></div>
-                    <div class="module-title-wrapper">
-                        <div class="module-amount">462</div>
-                        <h2 class="module-title">Stories</h2>
-                        <div class="dotted-line"></div>
-                        <p class="module-subtitle">Explore oral histories in the collection.</p>
+            <div class="scroll-note" aria-hidden="true">
+                <span class="scroll-line"></span>
+                <span>Scroll to enter</span>
+            </div>
+        </section>
+
+        <section class="stage-section section" id="stage">
+            <div class="section-shell">
+                <div class="scripture-layer" aria-hidden="true">
+                    <span class="watermark md stage-left">
+                        Your word is a lamp to my feet
+                        <small>Psalm 119:105 (ESV)</small>
+                    </span>
+                </div>
+
+                <div class="stage-grid">
+                    <div class="section-copy reveal">
+                        <p class="section-label">The Stage</p>
+                        <h2 class="section-title">An immersive room for the teachings that deserve time.</h2>
+                        <p class="section-text">
+                            The Stage is where long-form studies can breathe. Video, scripture,
+                            notes, and guided reflection move together so the experience feels more
+                            like entering a world than pressing play on a sermon clip.
+                        </p>
+                        <ul class="detail-list">
+                            <li>Scene-based movement through a book or theme</li>
+                            <li>Layered notes that support, not interrupt, the teaching</li>
+                            <li>Designed for attention, reflection, and return visits</li>
+                        </ul>
+                        <a class="button button-dark" href="#foundations">Build the path next</a>
+                    </div>
+
+                    <div class="stage-composition reveal">
+                        <article class="stage-card stage-primary">
+                            <p class="panel-label">Current study</p>
+                            <h3>Proverbs</h3>
+                            <p>Ancient wisdom, ordered with restraint and visual weight.</p>
+                        </article>
+                        <article class="stage-card stage-secondary">
+                            <p class="panel-label">Experience notes</p>
+                            <ul class="stage-bullets">
+                                <li>Chapter-driven progression</li>
+                                <li>Ambient motion only</li>
+                                <li>Journaling moments built in</li>
+                            </ul>
+                        </article>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <ul class="stories-grid">
-                    <li class="story-card">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Placeholder">
-                            <div class="card-overlay"></div>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-name">Marcus<br>Chen</h3>
-                            <div class="dotted-line small"></div>
-                            <p class="card-role">Youth Pastor</p>
-                        </div>
-                    </li>
-                    <li class="story-card">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Placeholder">
-                            <div class="card-overlay"></div>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-name">Sarah<br>Jenkins</h3>
-                            <div class="dotted-line small"></div>
-                            <p class="card-role">Author</p>
-                        </div>
-                    </li>
-                    <li class="story-card">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Placeholder">
-                            <div class="card-overlay"></div>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-name">David<br>Okafor</h3>
-                            <div class="dotted-line small"></div>
-                            <p class="card-role">Theologian</p>
-                        </div>
-                    </li>
-                </ul>
+        <section class="library-section section" id="library">
+            <div class="section-shell">
+                <div class="section-heading reveal">
+                    <div>
+                        <p class="section-label">Teachings</p>
+                        <h2 class="section-title">A library shaped by clarity, beauty, and pace.</h2>
+                    </div>
+                    <p class="section-text">
+                        This is not meant to feel like a feed. It should feel like an archive worth
+                        sitting with, where every entry carries weight and every path feels intentional.
+                    </p>
+                </div>
 
-                <button class="explore-button">
-                    <span>Explore all stories</span> &rarr;
-                </button>
-            </section>
-        </main>
-    </div>
+                <div class="featured-row reveal">
+                    <article class="featured-study">
+                        <div class="featured-visual">
+                            <span class="visual-tag">Featured</span>
+                            <span class="visual-time">44 min</span>
+                        </div>
+                        <div class="featured-copy">
+                            <p class="panel-label">Now teaching</p>
+                            <h3>The Book of Proverbs</h3>
+                            <p>
+                                A cinematic study on wisdom, correction, speech, desire, and the shape of a faithful life.
+                            </p>
+                            <a class="text-link" href="#testimonies">Move into the stories</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="card-grid">
+                    <article class="content-card reveal">
+                        <p class="card-tag">Doctrine</p>
+                        <h3>What wisdom actually demands of you</h3>
+                        <p>A direct teaching on obedience, humility, and the inner life Scripture addresses first.</p>
+                    </article>
+                    <article class="content-card reveal">
+                        <p class="card-tag">Foundations</p>
+                        <h3>Why does God let bad things happen?</h3>
+                        <p>A careful starting point for one of the hardest questions seekers bring into faith.</p>
+                    </article>
+                    <article class="content-card reveal">
+                        <p class="card-tag">Discipleship</p>
+                        <h3>How to read the Bible without rushing past it</h3>
+                        <p>Practical guidance for building a reading life that forms the heart instead of only informing the mind.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="foundations-section section" id="foundations">
+            <div class="section-shell">
+                <div class="scripture-layer" aria-hidden="true">
+                    <span class="watermark md foundations-right">
+                        The fear of the LORD is the beginning of wisdom
+                        <small>Proverbs 9:10 (ESV)</small>
+                    </span>
+                </div>
+
+                <div class="section-heading reveal">
+                    <div>
+                        <p class="section-label">Start Here</p>
+                        <h2 class="section-title">Foundations for the person who wants truth before polish.</h2>
+                    </div>
+                    <p class="section-text">
+                        A simple path for those beginning faith, rebuilding it, or finally wanting answers
+                        that do not sound rushed, generic, or detached from real life.
+                    </p>
+                </div>
+
+                <div class="path-grid">
+                    <article class="path-step reveal">
+                        <span class="step-number">01</span>
+                        <h3>Who is God?</h3>
+                        <p>Begin with the character of God before moving to anything about yourself.</p>
+                    </article>
+                    <article class="path-step reveal">
+                        <span class="step-number">02</span>
+                        <h3>Who am I?</h3>
+                        <p>Understand what Scripture says about human dignity, fracture, and need.</p>
+                    </article>
+                    <article class="path-step reveal">
+                        <span class="step-number">03</span>
+                        <h3>What is the Gospel?</h3>
+                        <p>See the centre of the Christian message with precision, beauty, and honesty.</p>
+                    </article>
+                    <article class="path-step reveal">
+                        <span class="step-number">04</span>
+                        <h3>Now what?</h3>
+                        <p>Move into prayer, Scripture, obedience, community, and an actual next step.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonies-section section" id="testimonies">
+            <div class="section-shell">
+                <div class="section-heading reveal">
+                    <div>
+                        <p class="section-label">Lives Being Written</p>
+                        <h2 class="section-title">Testimonies that feel human before they feel polished.</h2>
+                    </div>
+                    <p class="section-text">
+                        The gospel works in ordinary rooms, private grief, slow healing, and questions people
+                        are often too guarded to say aloud. The stories should carry that weight.
+                    </p>
+                </div>
+
+                <div class="story-grid">
+                    <article class="story-card reveal">
+                        <div class="story-frame"></div>
+                        <p class="story-name">Marcus A.</p>
+                        <h3>From the edge of faith to the centre of grace</h3>
+                    </article>
+                    <article class="story-card reveal">
+                        <div class="story-frame story-frame-alt"></div>
+                        <p class="story-name">Priya S.</p>
+                        <h3>The question I was afraid to ask, and the answer that stayed</h3>
+                    </article>
+                    <article class="story-card reveal">
+                        <div class="story-frame story-frame-dark"></div>
+                        <p class="story-name">Daniel O.</p>
+                        <h3>What grief taught me about resurrection and the nearness of God</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="closing-section section">
+            <div class="section-shell">
+                <div class="closing-card reveal">
+                    <div class="scripture-layer" aria-hidden="true">
+                        <span class="watermark sm closing-left">
+                            He who began a good work in you
+                            <small>Philippians 1:6 (ESV)</small>
+                        </span>
+                    </div>
+                    <p class="section-label">Closing Direction</p>
+                    <h2 class="section-title">Read slowly. Listen carefully. Stay long enough for the Word to work.</h2>
+                    <p class="section-text">
+                        This experiment takes the downloaded sample structure and redirects it around the actual
+                        heart of For The Soul: rich teachings, formative pathways, testimony, and a quieter editorial tone.
+                    </p>
+                    <div class="closing-actions">
+                        <a class="button button-primary" href="#library">Explore the teachings</a>
+                        <a class="button button-quiet" href="#foundations">Begin foundations</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p class="footer-brand">For The Soul</p>
+        <p class="footer-note">
+            Scripture quotations marked (ESV) are from the ESV Bible (The Holy Bible, English Standard Version),
+            copyright 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
