@@ -1013,6 +1013,9 @@
             display: block;
             opacity: 0.85;
         }
+        @media (prefers-color-scheme: dark) {
+            .footer-logo img { filter: brightness(0) invert(1); }
+        }
 
         .footer-headline {
             font-family: var(--font-heading);
@@ -1387,10 +1390,7 @@
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-logo">
-            <picture>
-                <source srcset="assets/Logo%20-%20Jet%20Black%20Text%20Transparent.svg" media="(prefers-color-scheme: light)">
-                <img src="assets/Logo%20-%20White%20Text%20Transparent.svg" alt="For The Soul">
-            </picture>
+            <img src="assets/Mobile%20Logo%20.png" alt="For The Soul">
         </div>
         <h2 class="footer-headline">Learn. Believe.<br><em>Grow in Truth.</em></h2>
         <p class="footer-sub">New teachings, straight to your inbox.</p>
