@@ -2,89 +2,53 @@
 
 ## 1. Overview
 - Personal ministry teaching platform — Henok's own voice: teachings, discipleship, the Stage
-- Stack: vanilla HTML/CSS/JS (no framework, no npm)
-- Priorities: performance, consistency, minimal dependencies, minimal diffs
+- Stack: vanilla HTML/CSS/JS (no framework, no npm) | Priorities: performance, minimal deps, minimal diffs
 - Separate from Anbessa Studios — never mix production services with ministry content
 
 ## 2. Tech Stack
-- Google Fonts CDN (Gloock heading, Jost body)
-- Build tool: `build.sh` (copies `src/` → `site/`)
-- Git remote: `git@github.com:thehedeg-arch/ForTheSoul.git`
-- Deploy: Netlify auto-deploy on push to `main` — https://forthesoul.netlify.app
-- Domain: `forthesoul.ca` (Porkbun registrar, Netlify DNS)
+- Fonts: Google Fonts CDN — Gloock (headings), Jost (body)
+- Build: `./build.sh` (copies `src/` → `site/`) | Dev: `cd src && python3 -m http.server 8000`
+- Git: `git@github.com:thehedeg-arch/ForTheSoul.git`
+- Deploy: Netlify auto-deploy on push to `main` — https://forthesoul.netlify.app | Domain: `forthesoul.ca`
 
 ## 3. Repo Map
 ```
 ForTheSoul/
-  CLAUDE.md                    ← this file
-  .gitignore                   ← excludes site/ and .DS_Store
+  CLAUDE.md / AGENTS.md        ← project instructions
   build.sh                     ← copies src/ → site/
-  netlify.toml                 ← hosting build config (publish = site/)
+  netlify.toml                 ← publish = site/
+  scripts/publish.py           ← Notion CMS pipeline
   state/
     progress.md                ← current task state
-    open_issues.md             ← pending decisions and risks
-    verification_log.md        ← test outcomes
+    open_issues.md             ← pending decisions
   src/
-    index.html                 ← homepage
+    index.html                 ← homepage (only page right now)
+    assets/                    ← logos, fonts
 ```
 
-## 4. Build & Dev
-
-### Dev Server
-```bash
-cd src && python3 -m http.server 8000
-# Homepage: http://localhost:8000/
-```
-
-### Build
-```bash
-./build.sh
-```
-
-## 5. Brand Rules (Hard Constraints)
+## 4. Brand Rules (Hard Constraints)
 - NO emojis — SVG line icons only
-- NO personal production services — this is ministry only
-- NO heavy animation libraries — loading speed is priority
+- NO personal production services — ministry only
 - NO external JS dependencies — vanilla only
-- Bold CTAs — never subtle or understated
-- Font hierarchy: Gloock (headings), Jost (body)
+- NO heavy animation libraries — CSS transitions + IntersectionObserver only
+- Bold CTAs — never subtle | Font: Gloock (headings), Jost (body)
 
-## 6. Editing Rules
+## 5. Editing Rules
+- Read the file before editing. Edit `src/` only — never `site/`.
+- Keep diffs minimal. Preserve 4-space indentation.
+- Never hand-edit `<!-- TEACHINGS:START --> ... <!-- TEACHINGS:END -->` — always use `/publish`.
 
-### DO
-- Read the file(s) you're changing before editing
-- Use repo-relative paths in explanations
-- Keep diffs minimal — change only what's needed
-- Preserve 4-space indentation
+## 6. Deployment
+- Netlify auto-deploys on push to `main`. Publish dir: `site/`. Build: `bash build.sh`.
+- Domain: `forthesoul.ca` via Netlify DNS (registered at Porkbun).
 
-### DON'T
-- Add emojis to any file
-- Add comments or annotations to code you didn't change
-- Introduce external JS libraries or CSS frameworks
-- Edit `site/` directly — edit `src/` instead
+## 7. Extensions
+- Skills: `/preflight`, `/seo-audit`, `/deep-research`, `/publish`
+- Agents: `reviewer`, `seo-auditor`, `research`
+- Safety deny rules: `~/.claude/settings.json`
 
-## 7. When to Read Files
-
-| Task | Read first |
-|---|---|
-| Edit homepage | `src/index.html` |
-| Edit styles | `src/css/styles.css` |
-| Change nav links | all files containing nav |
-| Change deployment config | `netlify.toml`, `build.sh` |
-
-## 8. Deployment
-- Platform: Netlify
-- Deploy trigger: auto-deploy on push to `main`
-- Domain: `forthesoul.ca` via Netlify DNS
-- Publish dir: `site/` — build command: `bash build.sh`
-
-## 9. Output Expectations
-- Use repo-relative paths by default
-- List all files changed at the end of a task
-- After link/string changes, verify zero stale references remain
-- After build changes, run `./build.sh` and confirm success
-
-## 10. Extensions
-- Global skills: `/preflight`, `/seo-audit`, `/deep-research`
-- Global agents: `reviewer`, `seo-auditor`, `research`
-- Safety deny rules in `~/.claude/settings.json`
+## 8. Notion CMS Pipeline
+- **Notion DB:** https://www.notion.so/eec8fd55f6d24f13a805c07dcadde133
+- **Data source:** `collection://b7f508e0-7694-44b6-8984-24e687a277b2`
+- **Workflow:** Set Status = Published + Publish Date in Notion → run `/publish` → commit
+- 3 most recent Published entries shown on homepage. See `scripts/publish.py` for full field docs.
